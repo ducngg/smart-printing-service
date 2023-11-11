@@ -8,6 +8,7 @@ const printers: Printer[] = [
     description: 'Black and white laser printer',
     location: 'Room 202',
     status: 'Enabled',
+    waitedTime: 60,
   },
   {
     id: '102347824',
@@ -16,6 +17,7 @@ const printers: Printer[] = [
     description: 'Color inkjet printer',
     location: 'Room 203',
     status: 'Enabled',
+    waitedTime: 12,
   },
   {
     id: '102347825',
@@ -24,6 +26,7 @@ const printers: Printer[] = [
     description: 'Dot matrix printer',
     location: 'Room 204',
     status: 'Disabled',
+    waitedTime: 1,
   },
   {
     id: '102347826',
@@ -32,6 +35,7 @@ const printers: Printer[] = [
     description: 'Black and white laser printer',
     location: 'Room 205',
     status: 'Enabled',
+    waitedTime: 5,
   },
   {
     id: '102347827',
@@ -39,6 +43,7 @@ const printers: Printer[] = [
     model: 'DeskJet 2135',
     description: 'Color inkjet printer',
     location: 'Room 206',
+    waitedTime: 5,
     status: 'Enabled',
   },
 ];
