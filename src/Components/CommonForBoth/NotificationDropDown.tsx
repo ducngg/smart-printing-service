@@ -5,8 +5,8 @@ import { Dropdown, DropdownToggle, DropdownMenu, Row, Col } from 'reactstrap';
 import SimpleBar from 'simplebar-react';
 
 //Import images
-import avatar3 from '../../assets/images/users/avatar-3.jpg';
-import avatar4 from '../../assets/images/users/avatar-4.jpg';
+// import avatar3 from '../../assets/images/users/avatar-3.jpg';
+// import avatar4 from '../../assets/images/users/avatar-4.jpg';
 
 const NotificationDropdown = () => {
   const { t } = useTranslation() as {
@@ -47,7 +47,7 @@ const NotificationDropdown = () => {
           </div>
 
           <SimpleBar style={{ height: '230px' }}>
-            <Link to='' className='text-reset notification-item'>
+            {/* <Link to='' className='text-reset notification-item'>
               <div className='d-flex'>
                 <div className='avatar-xs me-3'>
                   <span className='avatar-title bg-primary rounded-circle font-size-16'>
@@ -115,7 +115,7 @@ const NotificationDropdown = () => {
                   </div>
                 </div>
               </div>
-            </Link>
+            </Link> */}
           </SimpleBar>
           <div className='p-2 border-top d-grid'>
             <Link className='btn btn-sm btn-link font-size-14 text-center' to='#'>

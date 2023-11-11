@@ -38,7 +38,7 @@ const NoPermission = () => {
                 </CardBody>
               </Card>
               <div className='mt-5 text-center'>
-                <p>© {new Date().getFullYear()} OISP. Thiết kế bởi </p>
+                <p>© {new Date().getFullYear()} SSPS</p>
               </div>
             </Col>
           </Row>
