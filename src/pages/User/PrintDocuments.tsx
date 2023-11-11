@@ -98,20 +98,20 @@ const PrintDocuments = () => {
   });
 
   const handleConfirm = useCallback(() => {
-    if (selectedFiles.length <= 0) {
-      toast.error('Please choose a file to print');
-      return;
-    }
     if (currPrinter === '') {
       toast.error('Please select a printer');
+      return;
+    }
+    if (storage.length === 0) {
+      toast.error('Please add at least one file');
       return;
     }
     toast.success('Request sent');
     const newRequest: PrintRequest = {
       ...defaultRequest,
-      files: selectedFiles,
-      fileCount: selectedFiles.length,
-      pageCount: selectedFiles.reduce((acc, val) => {
+      files: storage,
+      fileCount: storage.length,
+      pageCount: storage.reduce((acc, val) => {
         return (
           acc +
           (val.printPageCount === 'Custom'
@@ -123,7 +123,7 @@ const PrintDocuments = () => {
       printer: currPrinter,
     };
     setRequests((prev) => [...prev, newRequest]);
-  }, [currPrinter, selectedFiles]);
+  }, [currPrinter, storage]);
 
   const handleAddFile = useCallback(() => {
     if (!uploadedFile) return;
