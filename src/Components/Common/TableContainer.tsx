@@ -19,11 +19,12 @@ import { Table } from 'reactstrap';
 interface TableContainerProps<TData, TValue = keyof TData> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  pageSize: number;
+  pageSize?: number;
   tableClass: string;
   theadClass: string;
   sortBy?: string;
   order?: 'asc' | 'desc';
+  pagination?: boolean;
   onToggleSort?: (id: string) => void;
 }
 
@@ -36,6 +37,7 @@ const TableContainer = <TData, TValue = keyof TData>({
   sortBy,
   order = 'asc',
   onToggleSort,
+  pagination = false,
 }: TableContainerProps<TData, TValue>) => {
   // Legacy react-table v7
   /*
@@ -69,10 +71,12 @@ const TableContainer = <TData, TValue = keyof TData>({
     getPaginationRowModel: getPaginationRowModel(),
     enableRowSelection: true,
     initialState: {
-      pagination: {
-        pageIndex: 0,
-        pageSize: pageSize > 0 ? pageSize : 20,
-      },
+      pagination: pagination
+        ? {
+            pageIndex: 0,
+            pageSize: pageSize && pageSize > 0 ? pageSize : data.length > 0 ? data.length : 20,
+          }
+        : {},
     },
   });
 

@@ -16,7 +16,8 @@ export type Document = {
   id: string;
   name: string;
   mimeType: string;
-  printPage: number;
+  printPageCount: number;
+  printPages: string;
   pagePerSheet: number;
   paperSize: PaperSize;
   copies: number;
@@ -31,7 +32,7 @@ export type PrintRequest = {
   fileCount: number;
   pageCount: number;
   createdAt: number;
-  printer: string;
+  printer?: string;
 };
 
 export type Printer = {
