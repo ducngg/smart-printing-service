@@ -28,7 +28,7 @@ const ProfileMenu = () => {
           <DropdownItem tag='a' href='/profile'>
             {' '}
             <i className='bx bx-user font-size-16 align-middle me-1' />
-            Tài khoản của tôi
+            My Profile
           </DropdownItem>
 
           {/* <DropdownItem tag="a" href="#">
@@ -38,7 +38,7 @@ const ProfileMenu = () => {
           <div className='dropdown-divider' />
           <Link to='/logout' className='dropdown-item'>
             <i className='bx bx-power-off font-size-16 align-middle me-1 text-danger' />
-            <span>Đăng xuất</span>
+            <span>Log out</span>
           </Link>
         </DropdownMenu>
       </Dropdown>

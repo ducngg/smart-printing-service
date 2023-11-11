@@ -1,6 +1,18 @@
 import { ColumnDef } from '@tanstack/react-table';
 import React, { useMemo, useState } from 'react';
-import { Card, CardBody, CardTitle, Col, Container, Row } from 'reactstrap';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardTitle,
+  Col,
+  Container,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Row,
+} from 'reactstrap';
 
 //Import Breadcrumb
 import TableContainer from 'Components/Common/TableContainer';
@@ -10,8 +22,23 @@ import { Document, PrintRequest, Printer } from 'types';
 
 import Breadcrumbs from '../../Components/Common/Breadcrumb';
 
+const defaultRequest: PrintRequest = {
+  id: Date.now().toString(),
+  files: [],
+  fileCount: 0,
+  pageCount: 0,
+  createdAt: 0,
+  printer: '',
+};
+
 const PrintDocuments = () => {
+  const [newRequest, setNewRequest] = useState<PrintRequest>(defaultRequest);
+  const [documents, setDocuments] = useState<Document[]>([]);
   const [requests] = useState<PrintRequest[]>(printRequests);
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const toggle = () => setIsOpen(!isOpen);
 
   const [sortBy, setSortBy] = useState<string>('');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
@@ -31,6 +58,9 @@ const PrintDocuments = () => {
   useTitle('Print Documents', {
     restoreOnUnmount: true,
   });
+
+  const handleConfirm = () => {};
+  const handleAddFile = () => {};
 
   const columns = useMemo<ColumnDef<PrintRequest, any>[]>(
     () => [
@@ -102,10 +132,171 @@ const PrintDocuments = () => {
 
   return (
     <React.Fragment>
+      <Modal size='lg' isOpen={isOpen} toggle={toggle}>
+        <ModalHeader toggle={toggle}>Add new file</ModalHeader>
+        <ModalBody></ModalBody>
+        <ModalFooter>
+          <button type='button' className='btn btn-rounded btn-primary' onClick={handleAddFile}>
+            Add File
+          </button>
+        </ModalFooter>
+      </Modal>
       <div className='page-content'>
         <Container fluid>
           {/* Render Breadcrumbs */}
           <Breadcrumbs title='For Students' breadcrumbItem='Print Document(s)' />
+          <Row>
+            <Col xs={12}>
+              <Card>
+                <CardBody>
+                  <Row>
+                    <Col xs={12} sm={6}>
+                      <CardTitle className='ml-4'>Make a print request</CardTitle>
+                    </Col>
+                    <Col
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        alignItems: 'center',
+                      }}
+                      xs={12}
+                      sm={6}
+                    >
+                      <Button
+                        type='button'
+                        color='success'
+                        className='btn-sm btn-rounded'
+                        onClick={toggle}
+                      >
+                        + Add new file
+                      </Button>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col xs={12} sm={8}>
+                      {' '}
+                      <Row style={{ gap: 4 }}>
+                        <Col xs={12}>
+                          <Button
+                            type='button'
+                            color='primary'
+                            className='btn-sm btn-rounded'
+                            style={{
+                              marginRight: 12,
+                              paddingTop: 2,
+                              paddingBottom: 2,
+                            }}
+                            onClick={() => {}}
+                          >
+                            Select all
+                          </Button>
+                        </Col>
+                        <Col xs={12}>
+                          <Button
+                            type='button'
+                            color='primary'
+                            className='btn-sm btn-rounded'
+                            style={{
+                              marginRight: 12,
+                              paddingTop: 2,
+                              paddingBottom: 2,
+                            }}
+                            onClick={() => {}}
+                          >
+                            Delete section
+                          </Button>
+                        </Col>
+                        <Col xs={12}>
+                          <b
+                            className='font-weight-bold'
+                            style={{
+                              marginRight: 12,
+                            }}
+                          >
+                            Total page(s) to print:{' '}
+                            <span>
+                              {newRequest.files.reduce((acc, val) => {
+                                return acc + val.printPage;
+                              }, 0)}
+                            </span>
+                          </b>
+                        </Col>
+                        <Col xs={12}>
+                          <b
+                            className='font-weight-bold'
+                            style={{
+                              marginRight: 12,
+                            }}
+                          >
+                            Page balance:{' '}
+                            <span>
+                              {newRequest.files.reduce((acc, val) => {
+                                return acc + val.printPage;
+                              }, 0)}
+                            </span>
+                          </b>
+                        </Col>
+                        <Col xs={12}>
+                          <b
+                            className='font-weight-bold'
+                            style={{
+                              marginRight: 12,
+                            }}
+                          >
+                            Printer:{'  '}
+                            <select
+                              className='form-select'
+                              name='state'
+                              style={{
+                                display: 'inline-block',
+                                marginLeft: 4,
+                                width: 150,
+                              }}
+                              value={newRequest.printer}
+                              onChange={(e) => {
+                                setNewRequest((prev) => ({
+                                  ...prev,
+                                  printer: e.target.value,
+                                }));
+                              }}
+                            >
+                              {printers.map((printer) => (
+                                <option key={printer.id} value={printer.id}>
+                                  {printer.model}
+                                </option>
+                              ))}
+                            </select>
+                          </b>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        alignItems: 'flex-end',
+                      }}
+                      xs={12}
+                      sm={4}
+                    >
+                      <Button
+                        type='button'
+                        color='primary'
+                        className='btn-sm btn-rounded'
+                        style={{
+                          width: 100,
+                        }}
+                        onClick={handleConfirm}
+                      >
+                        Confirm
+                      </Button>
+                    </Col>
+                  </Row>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
           <Row>
             <Col xs={12}>
               <Card>

@@ -19,7 +19,7 @@ type ChangePasswordType = {
 };
 
 const UserProfile = () => {
-  useTitle('Tài khoản của tôi', {
+  useTitle('My Profile', {
     restoreOnUnmount: true,
   });
 
@@ -60,7 +60,7 @@ const UserProfile = () => {
       <div className='page-content'>
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumb title='Ứng dụng' breadcrumbItem='Tài khoản của tôi' />
+          <Breadcrumb title='Ứng dụng' breadcrumbItem='My Profile' />
 
           <Row>
             <Col lg='12'>
