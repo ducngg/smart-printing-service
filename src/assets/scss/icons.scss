@@ -1,0 +1,29 @@
+/*
+Template Name: Skote - Admin & Dashboard Template
+Author: Themesbrand
+Version: 4.0.0.
+Website: https://themesbrand.com/
+Contact: themesbrand@gmail.com
+File: Icons Css File
+*/
+$green: #34c38f;
+$red:     #f46a6a;
+
+// Plugins
+@import "custom/plugins/icons";
+
+// Custom
+.success-icon {
+  width: 60px;
+  aspect-ratio: 1/1;
+  background-color: $green;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.failed-icon {
+  @extend .success-icon;
+  background-color: $red;
+}

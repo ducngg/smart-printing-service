@@ -1,0 +1,10 @@
+diff --git a/node_modules/simplebar-react/dist/index.d.ts b/node_modules/simplebar-react/dist/index.d.ts
+index a2bb389..45263fd 100644
+--- a/node_modules/simplebar-react/dist/index.d.ts
++++ b/node_modules/simplebar-react/dist/index.d.ts
+@@ -23,4 +23,5 @@ export interface Props extends Omit<React.HTMLAttributes<HTMLDivElement>, 'child
+     };
+ }
+ declare const SimpleBar: React.ForwardRefExoticComponent<Props & React.RefAttributes<SimpleBarCore | null>>;
++export { SimpleBarCore };
+ export default SimpleBar;
