@@ -18,6 +18,7 @@ import {
   ModalHeader,
   Row,
 } from 'reactstrap';
+import { useLocalStorage } from 'usehooks-ts';
 
 //Import Breadcrumb
 import TableContainer from 'Components/Common/TableContainer';
@@ -61,8 +62,12 @@ const PrintDocuments = () => {
   const [document, setDocument] = useState<Document>(defaultDocument);
   const [uploadedFile, setUploadedFile] = useState<PreviewFile | null>(null);
 
+  // Storage
+  const [storage, setStorage] = useLocalStorage<Document[]>('documents', []);
+
   // New Request
-  const [newRequest, setNewRequest] = useState<PrintRequest>(defaultRequest);
+  const [selectedFiles, setSelectedFiles] = useState<Document[]>([]);
+  const [currPrinter, setCurrPrinter] = useState<string>(printers[0].id);
 
   // Other
   const [requests, setRequests] = useState<PrintRequest[]>(printRequests);
@@ -88,43 +93,88 @@ const PrintDocuments = () => {
   });
 
   const handleConfirm = useCallback(() => {
-    if (newRequest.files.length <= 0) {
-      toast.error('Please add a file to print');
+    if (selectedFiles.length <= 0) {
+      toast.error('Please choose a file to print');
       return;
     }
-    if (newRequest.printer === '') {
+    if (currPrinter === '') {
       toast.error('Please select a printer');
       return;
     }
     toast.success('Request sent');
-    setNewRequest(defaultRequest);
+    const newRequest: PrintRequest = {
+      ...defaultRequest,
+      files: selectedFiles,
+      fileCount: selectedFiles.length,
+      pageCount: selectedFiles.reduce((acc, val) => {
+        return acc + val.printPageCount;
+      }, 0),
+      createdAt: Date.now(),
+      printer: currPrinter,
+    };
     setRequests((prev) => [...prev, newRequest]);
-  }, [newRequest]);
+  }, [currPrinter, selectedFiles]);
 
   const handleAddFile = useCallback(() => {
     if (!uploadedFile) return;
-    setNewRequest((prev) => ({
+    setStorage((prev) => [
       ...prev,
-      files: [
-        ...prev.files,
-        {
-          ...document,
-          id: Date.now().toString(),
-          name: uploadedFile.name,
-          mimeType: uploadedFile.type,
-          uploadStatus: 0,
-        },
-      ],
-      fileCount: prev.fileCount + 1,
-      pageCount: prev.pageCount + document.printPageCount,
-    }));
+      {
+        ...document,
+        id: Date.now().toString(),
+        name: uploadedFile.name,
+        mimeType: uploadedFile.type,
+        uploadStatus: 0,
+      },
+    ]);
     setUploadedFile(null);
     setDocument(defaultDocument);
     toggle();
-  }, [document, uploadedFile, toggle]);
+  }, [setStorage, uploadedFile, document, toggle]);
 
-  const newRequestColumns = useMemo<ColumnDef<Document, any>[]>(
+  const handleSelectAll = useCallback(() => {
+    if (selectedFiles.length === storage.length) {
+      setSelectedFiles([]);
+      return;
+    }
+
+    setSelectedFiles(storage);
+  }, [storage, selectedFiles]);
+
+  const handleDeleteSelection = useCallback(() => {
+    if (selectedFiles.length <= 0) return;
+    setStorage((prev) => {
+      return prev.filter((f) => !selectedFiles.some((s) => s.id === f.id));
+    });
+    setSelectedFiles([]);
+  }, [selectedFiles, setStorage]);
+
+  const storageColumn = useMemo<ColumnDef<Document, any>[]>(
     () => [
+      {
+        header: '',
+        accessorKey: 'id',
+        enableColumnFilter: false,
+        enableGlobalFilter: false,
+        cell: (cellProps) => {
+          const id = cellProps.getValue() as string;
+          const checked = selectedFiles.some((f) => f.id === id);
+          return (
+            <Input
+              checked={checked}
+              onChange={() => {
+                setSelectedFiles((prev) => {
+                  if (checked) {
+                    return prev.filter((f) => f.id !== id);
+                  }
+                  return [...prev, storage[cellProps.cell.row.index]];
+                });
+              }}
+              type='checkbox'
+            />
+          );
+        },
+      },
       {
         header: 'File name',
         accessorKey: 'name',
@@ -207,7 +257,7 @@ const PrintDocuments = () => {
         },
       },
     ],
-    []
+    [selectedFiles, storage]
   );
 
   const columns = useMemo<ColumnDef<PrintRequest, any>[]>(
@@ -290,8 +340,6 @@ const PrintDocuments = () => {
       })
     );
   };
-
-  console.log(requests.length);
 
   return (
     <React.Fragment>
@@ -537,10 +585,10 @@ const PrintDocuments = () => {
                   </Row>
 
                   <TableContainer
-                    columns={newRequestColumns}
+                    columns={storageColumn}
                     tableClass='table align-middle table-nowrap'
                     theadClass=''
-                    data={newRequest.files}
+                    data={storage}
                   />
 
                   <Row>
@@ -565,7 +613,7 @@ const PrintDocuments = () => {
                               paddingTop: 2,
                               paddingBottom: 2,
                             }}
-                            onClick={() => {}}
+                            onClick={handleSelectAll}
                           >
                             Select all
                           </Button>
@@ -580,9 +628,9 @@ const PrintDocuments = () => {
                               paddingTop: 2,
                               paddingBottom: 2,
                             }}
-                            onClick={() => {}}
+                            onClick={handleDeleteSelection}
                           >
-                            Delete section
+                            Delete selection
                           </Button>
                         </div>
                         <div>
@@ -594,7 +642,7 @@ const PrintDocuments = () => {
                           >
                             Total page(s) to print:{' '}
                             <span>
-                              {newRequest.files.reduce((acc, val) => {
+                              {selectedFiles.reduce((acc, val) => {
                                 return acc + val.printPageCount;
                               }, 0)}
                             </span>
@@ -609,7 +657,7 @@ const PrintDocuments = () => {
                           >
                             Page balance:{' '}
                             <span>
-                              {newRequest.files.reduce((acc, val) => {
+                              {selectedFiles.reduce((acc, val) => {
                                 return acc + val.printPageCount;
                               }, 0)}
                             </span>
@@ -631,13 +679,10 @@ const PrintDocuments = () => {
                                 marginLeft: 4,
                                 width: 150,
                               }}
-                              value={newRequest.printer}
-                              content={newRequest.printer || 'None'}
+                              value={currPrinter}
+                              content={currPrinter || 'None'}
                               onChange={(e) => {
-                                setNewRequest((prev) => ({
-                                  ...prev,
-                                  printer: e.target.value,
-                                }));
+                                setCurrPrinter(e.target.value);
                               }}
                             >
                               {printers.map((printer) => (
