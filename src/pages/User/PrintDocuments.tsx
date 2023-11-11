@@ -16,6 +16,7 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
+  Progress,
   Row,
 } from 'reactstrap';
 import { useLocalStorage } from 'usehooks-ts';
@@ -63,7 +64,11 @@ const PrintDocuments = () => {
   const [uploadedFile, setUploadedFile] = useState<PreviewFile | null>(null);
 
   // Storage
-  const [storage, setStorage] = useLocalStorage<Document[]>('documents', []);
+  const [storage, setStorage] = useLocalStorage<
+    (Document & {
+      animatedEnd?: boolean;
+    })[]
+  >('documents', []);
 
   // New Request
   const [selectedFiles, setSelectedFiles] = useState<Document[]>([]);
@@ -125,6 +130,7 @@ const PrintDocuments = () => {
         name: uploadedFile.name,
         mimeType: uploadedFile.type,
         uploadStatus: 0,
+        animatedEnd: false,
       },
     ]);
     setUploadedFile(null);
@@ -253,11 +259,24 @@ const PrintDocuments = () => {
         enableColumnFilter: false,
         enableGlobalFilter: false,
         cell: (cellProps) => {
-          return <div>{cellProps.getValue()}</div>;
+          return (
+            <Progress
+              value={100}
+              color='success'
+              animated={!storage[cellProps.cell.row.index]?.animatedEnd}
+              onAnimationEnd={() => {
+                setStorage((prev) => {
+                  const newStorage = [...prev];
+                  newStorage[cellProps.cell.row.index].animatedEnd = true;
+                  return newStorage;
+                });
+              }}
+            ></Progress>
+          );
         },
       },
     ],
-    [selectedFiles, storage]
+    [selectedFiles, storage, setStorage]
   );
 
   const columns = useMemo<ColumnDef<PrintRequest, any>[]>(
