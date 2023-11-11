@@ -16,9 +16,9 @@ export type Document = {
   id: string;
   name: string;
   mimeType: string;
-  printPageCount: number;
-  printPages: string;
-  pagePerSheet: number;
+  printPageCount: number | 'Custom';
+  printPages?: string;
+  pagePerSheet: 1 | 2 | 4 | 6 | 9;
   paperSize: PaperSize;
   copies: number;
   side: 'OneSided' | 'TwoSided';
@@ -42,4 +42,5 @@ export type Printer = {
   description: string;
   location: string;
   status: 'Enabled' | 'Disabled';
+  waitedTime: number;
 };

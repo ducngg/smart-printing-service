@@ -45,7 +45,7 @@ const defaultDocument: Document = {
   mimeType: '',
   printPageCount: 0,
   printPages: '',
-  pagePerSheet: 0,
+  pagePerSheet: 1,
   paperSize: PaperSize.A4,
   copies: 0,
   side: 'OneSided',
@@ -112,7 +112,12 @@ const PrintDocuments = () => {
       files: selectedFiles,
       fileCount: selectedFiles.length,
       pageCount: selectedFiles.reduce((acc, val) => {
-        return acc + val.printPageCount;
+        return (
+          acc +
+          (val.printPageCount === 'Custom'
+            ? val.printPages?.split(',').length || 0
+            : val.printPageCount)
+        );
       }, 0),
       createdAt: Date.now(),
       printer: currPrinter,
@@ -205,7 +210,13 @@ const PrintDocuments = () => {
         enableColumnFilter: false,
         enableGlobalFilter: false,
         cell: (cellProps) => {
-          return <div>{cellProps.getValue()}</div>;
+          if (cellProps.getValue() === 'Custom') {
+            return (
+              <div>
+                {`Custom (${storage[cellProps.cell.row.index].printPages?.split(',').length || 0})`}
+              </div>
+            );
+          }
         },
       },
       {
@@ -380,6 +391,15 @@ const PrintDocuments = () => {
                 </div>
               )}
             </Dropzone>
+            <Button
+              onClick={() => {
+                toast.warn('Coming soon');
+              }}
+              color='primary mt-3'
+            >
+              {' '}
+              Google Drive
+            </Button>
             <div className='dropzone-previews mt-3' id='file-previews'>
               {uploadedFile && (
                 <Card className='mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete'>
@@ -430,30 +450,61 @@ const PrintDocuments = () => {
                 </Label>
                 <Col sm={9}>
                   <Input
-                    type='number'
+                    type='text'
                     className='form-control'
                     id='horizontal-firstname-Input'
                     value={document.printPageCount}
-                    onChange={(e) =>
-                      setDocument({ ...document, printPageCount: e.target.valueAsNumber })
-                    }
+                    onChange={(e) => {
+                      if (parseInt(e.target.value)) {
+                        setDocument({
+                          ...document,
+                          printPageCount: parseInt(e.target.value),
+                        });
+                      } else {
+                        setDocument({
+                          ...document,
+                          printPageCount: 0,
+                        });
+                      }
+                    }}
                   />
                 </Col>
               </Row>
               <Row className='mb-4'>
-                <Label htmlFor='horizontal-firstname-Input' className='col-sm-3 col-form-label'>
-                  Enter pages to print (separated by a comma):
-                </Label>
                 <Col sm={9}>
-                  <Input
-                    type='text'
-                    className='form-control'
-                    id='horizontal-firstname-Input'
-                    value={document.printPages}
-                    onChange={(e) => setDocument({ ...document, printPages: e.target.value })}
-                  />
+                  <Label>
+                    <Input
+                      checked={document.printPageCount === 'Custom'}
+                      value='Custom'
+                      onChange={() =>
+                        setDocument({
+                          ...document,
+                          printPageCount: document.printPageCount === 'Custom' ? 1 : 'Custom',
+                        })
+                      }
+                      type='checkbox'
+                    />{' '}
+                    Custom
+                  </Label>
                 </Col>
               </Row>
+
+              {document.printPageCount === 'Custom' && (
+                <Row className='mb-4'>
+                  <Label htmlFor='horizontal-firstname-Input' className='col-sm-3 col-form-label'>
+                    Enter pages to print (separated by a comma):
+                  </Label>
+                  <Col sm={9}>
+                    <Input
+                      type='text'
+                      className='form-control'
+                      id='horizontal-firstname-Input'
+                      value={document.printPages}
+                      onChange={(e) => setDocument({ ...document, printPages: e.target.value })}
+                    />
+                  </Col>
+                </Row>
+              )}
               <Row className='mb-4'>
                 <Label htmlFor='horizontal-firstname-Input' className='col-sm-3 col-form-label'>
                   Paper size
@@ -551,15 +602,27 @@ const PrintDocuments = () => {
                   Pages per sheet
                 </Label>
                 <Col sm={9}>
-                  <Input
-                    type='number'
-                    className='form-control'
-                    id='horizontal-firstname-Input'
+                  <select
+                    className='form-select'
+                    style={{
+                      display: 'inline-block',
+                      marginLeft: 4,
+                      width: 150,
+                    }}
                     value={document.pagePerSheet}
-                    onChange={(e) =>
-                      setDocument({ ...document, pagePerSheet: e.target.valueAsNumber })
-                    }
-                  />
+                    onChange={(e) => {
+                      setDocument({
+                        ...document,
+                        pagePerSheet: parseInt(e.target.value, 10) as 1 | 2 | 4 | 6 | 9,
+                      });
+                    }}
+                  >
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='4'>4</option>
+                    <option value='6'>6</option>
+                    <option value='9'>9</option>
+                  </select>
                 </Col>
               </Row>
             </form>
@@ -662,7 +725,12 @@ const PrintDocuments = () => {
                             Total page(s) to print:{' '}
                             <span>
                               {selectedFiles.reduce((acc, val) => {
-                                return acc + val.printPageCount;
+                                return (
+                                  acc +
+                                  (val.printPageCount === 'Custom'
+                                    ? val.printPages?.split(',').length || 0
+                                    : val.printPageCount)
+                                );
                               }, 0)}
                             </span>
                           </b>
@@ -677,7 +745,12 @@ const PrintDocuments = () => {
                             Page balance:{' '}
                             <span>
                               {selectedFiles.reduce((acc, val) => {
-                                return acc + val.printPageCount;
+                                return (
+                                  acc +
+                                  (val.printPageCount === 'Custom'
+                                    ? val.printPages?.split(',').length || 0
+                                    : val.printPageCount)
+                                );
                               }, 0)}
                             </span>
                           </b>
@@ -706,7 +779,7 @@ const PrintDocuments = () => {
                             >
                               {printers.map((printer) => (
                                 <option key={printer.id} value={printer.id}>
-                                  {printer.model}
+                                  {printer.model} (Expected time: {printer.waitedTime} mintues)
                                 </option>
                               ))}
                             </select>
