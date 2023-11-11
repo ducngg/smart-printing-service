@@ -49,3 +49,7 @@ label {
       position: relative;
   }
 }
+
+hr {
+  border: $border-width solid $gray-400;
+}

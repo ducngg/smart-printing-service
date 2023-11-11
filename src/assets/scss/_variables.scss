@@ -621,8 +621,8 @@ $aspect-ratios: (
 
 // scss-docs-start font-variables
 // stylelint-disable value-keyword-case
-$font-family-sans-serif:      'Baloo Chettan 2', cursive;
-$font-family-monospace:       'Baloo Chettan 2', cursive;
+$font-family-sans-serif:      'Inter', cursive;
+$font-family-monospace:       'Inter', cursive;
 
 // stylelint-enable value-keyword-case
 $font-family-base:            var(--#{$variable-prefix}font-sans-serif);

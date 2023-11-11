@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Row, Col, CardBody, Card, Container } from 'reactstrap';
+import { Button, Col, Container, Row } from 'reactstrap';
 
-import withRouter from 'Components/Common/withRouter';
+import lightLogo from 'assets/images/logo-light.png';
 import useAppDispatch from 'hooks/useAppDispatch';
 import useAppSelector from 'hooks/useAppSelector';
 import useTitle from 'hooks/useTitle';
 import { RootState } from 'slices';
-import { login } from 'slices/auth/login/thunk';
+import { login } from 'slices/thunk';
 
-import lightlogo from '../../assets/images/logo-light.png';
+import CarouselPage from './CarouselPage';
 
-const Login = () => {
+const Login2 = () => {
   useTitle('Đăng nhập', {
     restoreOnUnmount: true,
   });
@@ -29,51 +29,47 @@ const Login = () => {
   const handleLogin = () => {
     dispatch(login());
   };
-
   return (
     <React.Fragment>
-      <div className='account-pages my-5 pt-sm-5'>
-        <Container>
-          <Row className='justify-content-center'>
-            <Col md={8} lg={6} xl={5}>
-              <Card className='overflow-hidden'>
-                <div className='bg-info bg-soft'>
-                  <Row>
-                    <Col className='col-8 d-flex align-items-center '>
-                      <div className='text-primary p-4'></div>
-                    </Col>
-                    <Col className='col-4 d-flex flex-md-row flex-column justify-content-center align-items-center pt-4 pb-4'>
-                      <img src={lightlogo} alt='' height='50' />
-                      <img
-                        style={{
-                          objectFit: 'cover',
-                        }}
-                        src={lightlogo}
-                        alt=''
-                        className='rounded-circle'
-                        height='65'
-                      />
-                    </Col>
-                  </Row>
-                </div>
-                <CardBody className='pt-0'>
-                  <div className='p-2'>
-                    <div className='form-horizontal'>
-                      <div className='mt-3 d-grid'>
-                        <button
-                          type='button'
-                          className='btn btn-primary btn-block '
-                          onClick={handleLogin}
-                        >
-                          Đăng nhập bằng Google
-                        </button>
+      <div>
+        <Container fluid className='p-0'>
+          <Row className='g-0'>
+            <CarouselPage />
+
+            <Col xl={3}>
+              <div className='auth-full-page-content p-md-5 p-4'>
+                <div className='w-100'>
+                  <div className='d-flex flex-column h-100'>
+                    <div className='my-auto'>
+                      <div className='auth-content'>
+                        <img className='auth-logo' width={152} src={lightLogo} alt='logo' />
+                        <h2 className='auth-title'>Student Smart Printing Service</h2>
+                      </div>
+
+                      <hr className='my-2' />
+
+                      <div className='mt-4'>
+                        <h6>Login as</h6>
+                        <Button onClick={handleLogin} className='auth-button' outline>
+                          Students of HCMUT
+                        </Button>
+                        <Button onClick={handleLogin} className='auth-button' outline>
+                          Students Printing Service Officer (SPSO)
+                        </Button>
+                        <Button onClick={handleLogin} className='auth-button' outline>
+                          HCMUT Planning & Financial Affairs Office
+                        </Button>
+                        <Button onClick={handleLogin} className='auth-button' outline>
+                          HCMUT Technical Support Office
+                        </Button>
                       </div>
                     </div>
+
+                    <div className='mt-4 mt-md-5 text-center'>
+                      <p className='mb-0'>© {new Date().getFullYear()} HCMUT_SPSS</p>
+                    </div>
                   </div>
-                </CardBody>
-              </Card>
-              <div className='mt-5 text-center'>
-                <p>© {new Date().getFullYear()} OISP. Phát triển bởi </p>
+                </div>
               </div>
             </Col>
           </Row>
@@ -83,4 +79,4 @@ const Login = () => {
   );
 };
 
-export default withRouter(Login);
+export default Login2;
