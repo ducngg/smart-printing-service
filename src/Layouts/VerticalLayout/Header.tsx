@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import NotificationDropdown from 'Components/CommonForBoth/NotificationDropDown';
+
 import logo from '../../assets/images/logo-light.png';
 import ProfileMenu from '../../Components/CommonForBoth/TopBarDropDown/ProfileMenu';
 const logoLightSvg = logo;
@@ -121,6 +123,8 @@ const Header = () => {
                 </form>
               </div>
             </div>
+
+            <NotificationDropdown />
 
             <div className='dropdown d-none d-lg-inline-block ms-1'>
               <button
