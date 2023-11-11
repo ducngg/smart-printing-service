@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import SimpleBar, { SimpleBarCore } from 'simplebar-react';
 
 import withRouter, { RouterProps } from 'Components/Common/withRouter';
+import useAppDispatch from 'hooks/useAppDispatch';
+import { logoutUser } from 'slices/thunk';
 
 type SidebarContentProps = RouterProps;
 
@@ -147,23 +149,56 @@ const SidebarContent = ({ router }: SidebarContentProps) => {
     }
   }
 
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
+
   return (
     <React.Fragment>
       <SimpleBar className='h-100' ref={ref}>
         <div id='sidebar-menu'>
           <ul className='metismenu list-unstyled' id='side-menu'>
-            <li className='menu-title'>Students</li>
+            <li className='menu-title'>FOR STUDENTS</li>
             <li>
-              <Link to='/dashboard'>
+              <Link to='/print-documents'>
                 <i className='bx bx-home-circle'></i>
-                <span>Home</span>
+                <span>Print Documents</span>
               </Link>
             </li>
-            <li className='menu-title'>General</li>
+            <li>
+              <Link to='/print-documents'>
+                <i className='bx bx-time-five'></i>
+                <span>Print history</span>
+              </Link>
+            </li>
+            <li>
+              <Link to='/print-documents'>
+                <i className='bx bx-cart'></i>
+                <span>Buy printing page</span>
+              </Link>
+            </li>
+            <li className='menu-title'>GENERAL</li>
             <li>
               <Link to='/profile'>
                 <i className='bx bx-user-circle'></i>
                 <span>My Profile</span>
+              </Link>
+            </li>
+            <li>
+              <Link to='/profile'>
+                <i className='mdi mdi-alert'></i>
+                <span>Report an issue</span>
+              </Link>
+            </li>
+            <li>
+              <Link to='#' onClick={handleLogout}>
+                <i
+                  className='mdi mdi-arrow-expand-left
+'
+                ></i>
+                <span>Logout</span>
               </Link>
             </li>
           </ul>

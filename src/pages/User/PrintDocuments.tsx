@@ -1,11 +1,13 @@
 import React from 'react';
 import { Container } from 'reactstrap';
 
-import Breadcrumb from 'Components/Common/Breadcrumb';
+//Import Breadcrumb
 import useTitle from 'hooks/useTitle';
 
-const Dashboard = () => {
-  useTitle('Trang chủ', {
+import Breadcrumbs from '../../Components/Common/Breadcrumb';
+
+const PrintDocuments = () => {
+  useTitle('Print Documents', {
     restoreOnUnmount: true,
   });
 
@@ -13,11 +15,12 @@ const Dashboard = () => {
     <React.Fragment>
       <div className='page-content'>
         <Container fluid>
-          <Breadcrumb title='Ứng dụng' breadcrumbItem='Ứng dụng' />
+          {/* Render Breadcrumbs */}
+          <Breadcrumbs title='Print Document(s)' breadcrumbItem='For Students' />
         </Container>
       </div>
     </React.Fragment>
   );
 };
 
-export default Dashboard;
+export default PrintDocuments;

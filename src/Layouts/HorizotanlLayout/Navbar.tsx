@@ -100,26 +100,26 @@ const Navbar: React.FC<NavbarProps> = ({ router, leftMenu, menuOpen }) => {
                       e.preventDefault();
                       setdashboard(!dashboard);
                     }}
-                    to='/dashboard'
+                    to='/print-documents'
                   >
                     <i className='bx bx-home-circle me-2'></i>
                     {t('Dashboard')} {menuOpen}
                     <div className='arrow-down'></div>
                   </Link>
                   <div className={classname('dropdown-menu', { show: dashboard })}>
-                    <Link to='/dashboard' className='dropdown-item'>
+                    <Link to='/print-documents' className='dropdown-item'>
                       {t('Default')}
                     </Link>
-                    <Link to='/dashboard-saas' className='dropdown-item'>
+                    <Link to='/print-documents-saas' className='dropdown-item'>
                       {t('Saas')}
                     </Link>
-                    <Link to='/dashboard-crypto' className='dropdown-item'>
+                    <Link to='/print-documents-crypto' className='dropdown-item'>
                       {t('Crypto')}
                     </Link>
-                    <Link to='/dashboard-blog' className='dropdown-item'>
+                    <Link to='/print-documents-blog' className='dropdown-item'>
                       {t('Blog')}
                     </Link>
-                    <Link to='/dashboard-job' className='dropdown-item'>
+                    <Link to='/print-documents-job' className='dropdown-item'>
                       {t('Jobs')}
                     </Link>
                   </div>

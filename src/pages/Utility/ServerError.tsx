@@ -24,7 +24,7 @@ const ServerErrorPage = () => {
                 </h1>
                 <h4 className='text-uppercase'>Internal Server Error</h4>
                 <div className='mt-5 text-center'>
-                  <Link className='btn btn-primary waves-effect waves-light ' to='/dashboard'>
+                  <Link className='btn btn-primary waves-effect waves-light ' to='/print-documents'>
                     Back to Dashboard
                   </Link>
                 </div>

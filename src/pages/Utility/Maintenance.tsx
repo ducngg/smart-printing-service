@@ -26,7 +26,7 @@ const MaintenancePage = () => {
             <Col className='col-12 text-center'>
               <div className='home-wrapper'>
                 <div className='mb-5'>
-                  <Link to='/dashboard' className='d-block auth-logo'>
+                  <Link to='/print-documents' className='d-block auth-logo'>
                     <img src={logo} alt='logo' height='20' />
                   </Link>
                 </div>

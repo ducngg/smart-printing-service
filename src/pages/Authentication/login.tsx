@@ -23,7 +23,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isAuthenticated) navigate('/dashboard');
+    if (isAuthenticated) navigate('/print-documents');
   }, [isAuthenticated, navigate]);
 
   const handleLogin = () => {
@@ -40,10 +40,7 @@ const Login = () => {
                 <div className='bg-info bg-soft'>
                   <Row>
                     <Col className='col-8 d-flex align-items-center '>
-                      <div className='text-primary p-4'>
-                        <strong className='h3 text-primary'>Đăng nhập</strong>
-                        <p>Ứng dụng quản lí thông tin sinh viên</p>
-                      </div>
+                      <div className='text-primary p-4'></div>
                     </Col>
                     <Col className='col-4 d-flex flex-md-row flex-column justify-content-center align-items-center pt-4 pb-4'>
                       <img src={lightlogo} alt='' height='50' />

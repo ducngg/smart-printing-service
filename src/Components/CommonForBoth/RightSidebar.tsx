@@ -70,7 +70,11 @@ const RightSidebar = ({ toggleCanvas, show }: TSideBar) => {
           <SimpleBar style={{ height: '900px' }}>
             <div data-simplebar className='h-100'>
               <div className='rightbar-title px-3 py-4'>
-                <Link className='right-bar-toggle float-end' to='/dashboard' onClick={toggleCanvas}>
+                <Link
+                  className='right-bar-toggle float-end'
+                  to='/print-documents'
+                  onClick={toggleCanvas}
+                >
                   <i className='mdi mdi-close noti-icon'></i>
                 </Link>
                 <h5 className='m-0'>Settings</h5>
