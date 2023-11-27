@@ -6,6 +6,7 @@ import NoPermission from 'pages/Authentication/NoPermission';
 import BuyPage from 'pages/User/BuyPage';
 import PrintDocuments from 'pages/User/PrintDocuments';
 import PrintHistory from 'pages/User/PrintHistory';
+import UserProfile from 'pages/User/UserProfile';
 import NotFoundPage from 'pages/Utility/NotFound';
 
 type RouteObject = {
@@ -18,6 +19,7 @@ const authProtectedRoutes: RouteObject[] = [
   { path: '/print-documents', component: <PrintDocuments /> },
   { path: '/print-history', component: <PrintHistory /> },
   { path: '/buy-page', component: <BuyPage /> },
+  { path: '/profile', component: <UserProfile /> },
   { path: '/', exact: true, component: <Navigate to='/print-documents' /> },
 ];
 

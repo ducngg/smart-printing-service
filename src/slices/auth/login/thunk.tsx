@@ -9,6 +9,8 @@ export const login = () => (dispatch: Dispatch) => {
         name: 'Hung',
         email: 'truongquochung@gmail.com',
         picture: 'https://picsum.photos/200/300',
+        faculty: 'Faculty of Computer Science and Engineering',
+        studentId: '2153414',
       })
     );
 
@@ -28,6 +30,8 @@ export const getProfile = () => (dispatch: Dispatch) => {
         name: 'Hung',
         email: 'truongquochung@gmail.com',
         picture: 'https://picsum.photos/200/300',
+        faculty: 'Faculty of Computer Science and Engineering',
+        studentId: '2153414',
       })
     );
   } catch (error) {
