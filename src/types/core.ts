@@ -32,6 +32,7 @@ export type PrintRequest = {
   fileCount: number;
   pageCount: number;
   createdAt: number;
+  status: 'Printing' | 'Pending' | 'Sucesss' | 'Failed';
   printer?: string;
 };
 

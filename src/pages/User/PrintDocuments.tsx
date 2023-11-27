@@ -793,6 +793,7 @@ const PrintDocuments = () => {
                         justifyContent: 'flex-end',
                         alignItems: 'flex-end',
                       }}
+                      xs={12}
                     >
                       <Button
                         type='button'

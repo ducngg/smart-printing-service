@@ -168,7 +168,7 @@ const SidebarContent = ({ router }: SidebarContentProps) => {
               </Link>
             </li>
             <li>
-              <Link to='/print-documents'>
+              <Link to='/print-history'>
                 <i className='bx bx-time-five'></i>
                 <span>Print history</span>
               </Link>

@@ -51,6 +51,7 @@ const printers: Printer[] = [
 const printRequests: PrintRequest[] = [
   {
     id: '234234234',
+    status: 'Printing',
     files: [
       {
         id: '345345345',
@@ -69,10 +70,11 @@ const printRequests: PrintRequest[] = [
     fileCount: 1,
     printer: '102347823',
     pageCount: 1,
-    createdAt: 1590000000000,
+    createdAt: 1701109384205,
   },
   {
     id: '234234235',
+    status: 'Sucesss',
     files: [
       {
         id: '345345346',
@@ -104,10 +106,11 @@ const printRequests: PrintRequest[] = [
     fileCount: 2,
     printer: '102347824',
     pageCount: 2,
-    createdAt: 1590000000000,
+    createdAt: 1701109384205,
   },
   {
     id: '234234236',
+    status: 'Pending',
     files: [
       {
         id: '345345348',
@@ -152,7 +155,7 @@ const printRequests: PrintRequest[] = [
     fileCount: 3,
     printer: '102347825',
     pageCount: 3,
-    createdAt: 1590000000000,
+    createdAt: 1701109384205,
   },
 ];
 
