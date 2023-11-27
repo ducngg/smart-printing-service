@@ -174,7 +174,7 @@ const SidebarContent = ({ router }: SidebarContentProps) => {
               </Link>
             </li>
             <li>
-              <Link to='/print-documents'>
+              <Link to='/buy-page'>
                 <i className='bx bx-cart'></i>
                 <span>Buy printing page</span>
               </Link>

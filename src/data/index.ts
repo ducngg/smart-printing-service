@@ -1,4 +1,4 @@
-import { PaperSize, PrintRequest, Printer } from 'types';
+import { PaperSize, PrintRequest, Printer, Purchase } from 'types';
 
 const printers: Printer[] = [
   {
@@ -159,4 +159,22 @@ const printRequests: PrintRequest[] = [
   },
 ];
 
-export { printers, printRequests };
+const purchases: Purchase[] = [
+  {
+    id: '234234234',
+    createdAt: 1701109384205,
+    amount: 1,
+  },
+  {
+    id: '234234235',
+    createdAt: 1701109384205,
+    amount: 3,
+  },
+  {
+    id: '234234236',
+    createdAt: 1701109384205,
+    amount: 5,
+  },
+];
+
+export { printers, printRequests, purchases };

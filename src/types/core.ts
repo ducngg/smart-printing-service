@@ -45,3 +45,9 @@ export type Printer = {
   status: 'Enabled' | 'Disabled';
   waitedTime: number;
 };
+
+export type Purchase = {
+  id: string;
+  createdAt: number;
+  amount: number;
+};
