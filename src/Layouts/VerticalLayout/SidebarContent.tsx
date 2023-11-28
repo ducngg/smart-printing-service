@@ -187,7 +187,7 @@ const SidebarContent = ({ router }: SidebarContentProps) => {
               </Link>
             </li>
             <li>
-              <Link to='/profile'>
+              <Link to='/report'>
                 <i className='mdi mdi-alert'></i>
                 <span>Report an issue</span>
               </Link>

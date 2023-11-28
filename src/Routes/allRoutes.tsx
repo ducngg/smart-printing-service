@@ -6,6 +6,7 @@ import NoPermission from 'pages/Authentication/NoPermission';
 import BuyPage from 'pages/User/BuyPage';
 import PrintDocuments from 'pages/User/PrintDocuments';
 import PrintHistory from 'pages/User/PrintHistory';
+import Report from 'pages/User/Report';
 import UserProfile from 'pages/User/UserProfile';
 import NotFoundPage from 'pages/Utility/NotFound';
 
@@ -20,6 +21,7 @@ const authProtectedRoutes: RouteObject[] = [
   { path: '/print-history', component: <PrintHistory /> },
   { path: '/buy-page', component: <BuyPage /> },
   { path: '/profile', component: <UserProfile /> },
+  { path: '/report', component: <Report /> },
   { path: '/', exact: true, component: <Navigate to='/print-documents' /> },
 ];
 
