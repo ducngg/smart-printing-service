@@ -1,6 +1,7 @@
 import Login from 'pages/Authentication/login';
 import Logout from 'pages/Authentication/Logout';
 import NoPermission from 'pages/Authentication/NoPermission';
+import ExpenseReport from 'pages/Financial/ExpenseReport';
 import ManagerPrinters from 'pages/Manager/ManagePrinters';
 import SysConfig from 'pages/Manager/SysConfig';
 import SystemUsage from 'pages/Manager/SystemUsage';
@@ -27,7 +28,7 @@ const authProtectedRoutes: RouteObject[] = [
   { path: '/manage-printer', component: <ManagerPrinters />, role: 'Manage' },
   { path: '/system-usage', component: <SystemUsage />, role: 'Manage' },
   { path: '/system-config', component: <SysConfig />, role: 'Manage' },
-  { path: '/expense-report', component: <StarterPage />, role: 'Financial' },
+  { path: '/expense-report', component: <ExpenseReport />, role: 'Financial' },
   { path: '/expense-categories', component: <StarterPage />, role: 'Financial' },
   { path: '/reported-issues', component: <StarterPage />, role: 'Technical' },
   { path: '/notify-maintanence', component: <StarterPage />, role: 'Technical' },
