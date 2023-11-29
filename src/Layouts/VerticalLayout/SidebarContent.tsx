@@ -5,6 +5,8 @@ import SimpleBar, { SimpleBarCore } from 'simplebar-react';
 
 import withRouter, { RouterProps } from 'Components/Common/withRouter';
 import useAppDispatch from 'hooks/useAppDispatch';
+import useAppSelector from 'hooks/useAppSelector';
+import { RootState } from 'slices';
 import { logoutUser } from 'slices/thunk';
 
 type SidebarContentProps = RouterProps;
@@ -155,30 +157,99 @@ const SidebarContent = ({ router }: SidebarContentProps) => {
     dispatch(logoutUser());
   };
 
+  const { user } = useAppSelector((state: RootState) => state.Login);
+
   return (
     <React.Fragment>
       <SimpleBar className='h-100' ref={ref}>
         <div id='sidebar-menu'>
           <ul className='metismenu list-unstyled' id='side-menu'>
-            <li className='menu-title'>FOR STUDENTS</li>
-            <li>
-              <Link to='/print-documents'>
-                <i className='bx bx-home-circle'></i>
-                <span>Print Documents</span>
-              </Link>
-            </li>
-            <li>
-              <Link to='/print-history'>
-                <i className='bx bx-time-five'></i>
-                <span>Print history</span>
-              </Link>
-            </li>
-            <li>
-              <Link to='/buy-page'>
-                <i className='bx bx-cart'></i>
-                <span>Buy printing page</span>
-              </Link>
-            </li>
+            {user?.role === 'User' && (
+              <>
+                <li className='menu-title'>FOR STUDENTS</li>
+                <li>
+                  <Link to='/print-documents'>
+                    <i className='bx bx-printer'></i>
+                    <span>Print Documents</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/print-history'>
+                    <i className='bx bx-time-five'></i>
+                    <span>Print history</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/buy-page'>
+                    <i className='bx bx-cart'></i>
+                    <span>Buy printing page</span>
+                  </Link>
+                </li>
+              </>
+            )}
+            {user?.role === 'Manage' && (
+              <>
+                <li className='menu-title'>FOR SPSO</li>
+                <li>
+                  <Link to='/manage-printer'>
+                    <i className='bx bx-printer'></i>
+                    <span>Manage printers</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/system-usage'>
+                    <i className='bx bx-time-five'></i>
+                    <span>System usage</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/system-config'>
+                    <i className='bx bx-customize'></i>
+                    <span>System configuration</span>
+                  </Link>
+                </li>
+              </>
+            )}
+            {user?.role === 'Financial' && (
+              <>
+                <li className='menu-title'>FOR FINANCIAL OFFICE</li>
+                <li>
+                  <Link to='/expense-report'>
+                    <i className='bx bx-home-alt'></i>
+                    <span>View Expense Report</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/expense-categories'>
+                    <i className='bx bx-time-five'></i>
+                    <span>Expense categories</span>
+                  </Link>
+                </li>
+              </>
+            )}
+            {user?.role === 'Technical' && (
+              <>
+                <li className='menu-title'>FOR TECHNICAL SUPPORT</li>
+                <li>
+                  <Link to='/reported-issues'>
+                    <i className='bx bx-home-alt'></i>
+                    <span>Reported issues</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/notify-maintanence'>
+                    <i className='bx bx-time-five'></i>
+                    <span>Notify maintanence</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/printer-status'>
+                    <i className='bx bx-time-five'></i>
+                    <span>Printer status</span>
+                  </Link>
+                </li>
+              </>
+            )}
             <li className='menu-title'>GENERAL</li>
             <li>
               <Link to='/profile'>

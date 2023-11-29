@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { ApexOptions } from 'apexcharts';
 import classNames from 'classnames';
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
@@ -24,87 +23,6 @@ import useTitle from 'hooks/useTitle';
 import { RootState } from 'slices';
 
 import profileImg from '../../assets/images/profile-img.png';
-
-const options: ApexOptions = {
-  dataLabels: {
-    enabled: false,
-  },
-  stroke: {
-    curve: 'smooth',
-    width: 3,
-  },
-  colors: getChartColorsArray('["--bs-primary", "--bs-warning"]'),
-  xaxis: {
-    type: 'category',
-    categories: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'December',
-    ],
-  },
-  grid: {
-    borderColor: '#f1f1f1',
-  },
-  tooltip: {
-    x: {
-      format: 'dd/MM/yy HH:mm',
-    },
-  },
-};
-
-const chartOptions: ApexOptions = {
-  chart: {
-    stacked: !0,
-    zoom: {
-      enabled: !0,
-    },
-  },
-  plotOptions: {
-    bar: {
-      horizontal: !1,
-      columnWidth: '15%',
-      // endingShape: "rounded"
-    },
-  },
-  dataLabels: {
-    enabled: !1,
-  },
-  xaxis: {
-    categories: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ],
-    labels: {
-      show: true,
-    },
-  },
-  colors: getChartColorsArray('["--bs-primary", "--bs-warning"]'),
-  legend: {
-    position: 'bottom',
-  },
-  fill: {
-    opacity: 1,
-  },
-};
 
 const UserProfile = () => {
   useTitle('My Profile', {
@@ -272,7 +190,41 @@ const UserProfile = () => {
 
                 <Row>
                   <ReactApexChart
-                    options={options}
+                    options={{
+                      dataLabels: {
+                        enabled: false,
+                      },
+                      stroke: {
+                        curve: 'smooth',
+                        width: 3,
+                      },
+                      colors: getChartColorsArray('["--bs-primary", "--bs-warning"]'),
+                      xaxis: {
+                        type: 'category',
+                        categories: [
+                          'Jan',
+                          'Feb',
+                          'Mar',
+                          'Apr',
+                          'May',
+                          'Jun',
+                          'Jul',
+                          'Aug',
+                          'Sep',
+                          'Oct',
+                          'Nov',
+                          'December',
+                        ],
+                      },
+                      grid: {
+                        borderColor: '#f1f1f1',
+                      },
+                      tooltip: {
+                        x: {
+                          format: 'dd/MM/yy HH:mm',
+                        },
+                      },
+                    }}
                     series={[
                       {
                         name: 'Print request',
@@ -336,7 +288,50 @@ const UserProfile = () => {
                 </div>
                 {/* TODO */}
                 <ReactApexChart
-                  options={chartOptions}
+                  options={{
+                    chart: {
+                      stacked: !0,
+                      zoom: {
+                        enabled: !0,
+                      },
+                    },
+                    plotOptions: {
+                      bar: {
+                        horizontal: !1,
+                        columnWidth: '15%',
+                        // endingShape: "rounded"
+                      },
+                    },
+                    dataLabels: {
+                      enabled: !1,
+                    },
+                    xaxis: {
+                      categories: [
+                        'Jan',
+                        'Feb',
+                        'Mar',
+                        'Apr',
+                        'May',
+                        'Jun',
+                        'Jul',
+                        'Aug',
+                        'Sep',
+                        'Oct',
+                        'Nov',
+                        'Dec',
+                      ],
+                      labels: {
+                        show: true,
+                      },
+                    },
+                    colors: getChartColorsArray('["--bs-primary", "--bs-warning"]'),
+                    legend: {
+                      position: 'bottom',
+                    },
+                    fill: {
+                      opacity: 1,
+                    },
+                  }}
                   series={[
                     {
                       name: 'A4',

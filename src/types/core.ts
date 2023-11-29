@@ -4,6 +4,7 @@ export type User = {
   studentId: string;
   faculty: string;
   picture: string;
+  role: 'Manage' | 'User' | 'Financial' | 'Technical';
 };
 
 export enum PaperSize {

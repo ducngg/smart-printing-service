@@ -8,6 +8,7 @@ import useAppSelector from 'hooks/useAppSelector';
 import useTitle from 'hooks/useTitle';
 import { RootState } from 'slices';
 import { login } from 'slices/thunk';
+import { User } from 'types';
 
 import CarouselPage from './CarouselPage';
 
@@ -23,11 +24,11 @@ const Login2 = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isAuthenticated) navigate('/print-documents');
+    if (isAuthenticated) navigate('/');
   }, [isAuthenticated, navigate]);
 
-  const handleLogin = () => {
-    dispatch(login());
+  const handleLogin = (role: User['role']) => {
+    dispatch(login(role));
   };
   return (
     <React.Fragment>
@@ -50,16 +51,28 @@ const Login2 = () => {
 
                       <div className='mt-4'>
                         <h6>Login as</h6>
-                        <Button onClick={handleLogin} className='auth-button' outline>
+                        <Button onClick={() => handleLogin('User')} className='auth-button' outline>
                           Students of HCMUT
                         </Button>
-                        <Button onClick={handleLogin} className='auth-button' outline>
+                        <Button
+                          onClick={() => handleLogin('Manage')}
+                          className='auth-button'
+                          outline
+                        >
                           Students Printing Service Officer (SPSO)
                         </Button>
-                        <Button onClick={handleLogin} className='auth-button' outline>
+                        <Button
+                          onClick={() => handleLogin('Financial')}
+                          className='auth-button'
+                          outline
+                        >
                           HCMUT Planning & Financial Affairs Office
                         </Button>
-                        <Button onClick={handleLogin} className='auth-button' outline>
+                        <Button
+                          onClick={() => handleLogin('Technical')}
+                          className='auth-button'
+                          outline
+                        >
                           HCMUT Technical Support Office
                         </Button>
                       </div>

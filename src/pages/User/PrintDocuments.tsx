@@ -81,7 +81,7 @@ const PrintDocuments = () => {
       return;
     }
     toast.success('Request sent');
-  }, [currPrinter, selectedFiles]);
+  }, [currPrinter, storage]);
 
   const handleAddFile = useCallback(() => {
     if (!uploadedFile) return;
