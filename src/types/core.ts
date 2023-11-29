@@ -47,6 +47,7 @@ export type Printer = {
   location: string;
   status: 'Enabled' | 'Disabled';
   waitedTime: number;
+  lastUsed: number;
 };
 
 export type Purchase = {

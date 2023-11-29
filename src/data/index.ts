@@ -9,6 +9,7 @@ const printers: Printer[] = [
     location: 'Room 202',
     status: 'Enabled',
     waitedTime: 60,
+    lastUsed: 1701109384205,
   },
   {
     id: '102347824',
@@ -18,6 +19,7 @@ const printers: Printer[] = [
     location: 'Room 203',
     status: 'Enabled',
     waitedTime: 12,
+    lastUsed: 1701109384205,
   },
   {
     id: '102347825',
@@ -27,6 +29,7 @@ const printers: Printer[] = [
     location: 'Room 204',
     status: 'Disabled',
     waitedTime: 1,
+    lastUsed: 1701109384205,
   },
   {
     id: '102347826',
@@ -36,6 +39,7 @@ const printers: Printer[] = [
     location: 'Room 205',
     status: 'Enabled',
     waitedTime: 5,
+    lastUsed: 1701109384205,
   },
   {
     id: '102347827',
@@ -45,6 +49,7 @@ const printers: Printer[] = [
     location: 'Room 206',
     waitedTime: 5,
     status: 'Enabled',
+    lastUsed: 1701109384205,
   },
 ];
 
