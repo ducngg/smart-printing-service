@@ -1,7 +1,10 @@
 export type User = {
   name: string;
   email: string;
+  studentId: string;
+  faculty: string;
   picture: string;
+  role: 'Manage' | 'User' | 'Financial' | 'Technical';
 };
 
 export enum PaperSize {
@@ -32,6 +35,7 @@ export type PrintRequest = {
   fileCount: number;
   pageCount: number;
   createdAt: number;
+  status: 'Printing' | 'Pending' | 'Sucesss' | 'Failed';
   printer?: string;
 };
 
@@ -43,4 +47,11 @@ export type Printer = {
   location: string;
   status: 'Enabled' | 'Disabled';
   waitedTime: number;
+  lastUsed: number;
+};
+
+export type Purchase = {
+  id: string;
+  createdAt: number;
+  amount: number;
 };

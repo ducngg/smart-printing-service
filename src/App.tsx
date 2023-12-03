@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from 'react';
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import useAppDispatch from 'hooks/useAppDispatch';
@@ -45,6 +45,8 @@ const App = () => {
 
   const Layout = getLayout(layoutTypes);
 
+  const { user } = useAppSelector((state: RootState) => state.Login);
+
   return (
     <Suspense fallback={null}>
       <Routes>
@@ -68,6 +70,23 @@ const App = () => {
             }
           />
         ))}
+        <Route
+          path='/'
+          element={
+            <Navigate
+              to={
+                user?.role === 'User'
+                  ? 'print-documents'
+                  : user?.role === 'Manage'
+                  ? 'manage-printer'
+                  : user?.role === 'Financial'
+                  ? 'expense-report'
+                  : 'reported-issues'
+              }
+              replace={true}
+            />
+          }
+        />
       </Routes>
       <ToastContainer
         position='top-right'

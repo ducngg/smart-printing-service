@@ -49,7 +49,7 @@ const ComingsoonPage = () => {
           <Row>
             <Col lg='12'>
               <div className='text-center'>
-                <Link to='/print-documents' className='d-block auth-logo'>
+                <Link to='/' className='d-block auth-logo'>
                   <img src={logo} alt='logo' height='20' />
                 </Link>
                 <Row className='justify-content-center mt-5'>

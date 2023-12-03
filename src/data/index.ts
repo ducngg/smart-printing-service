@@ -1,4 +1,4 @@
-import { PaperSize, PrintRequest, Printer } from 'types';
+import { PaperSize, PrintRequest, Printer, Purchase } from 'types';
 
 const printers: Printer[] = [
   {
@@ -9,6 +9,7 @@ const printers: Printer[] = [
     location: 'Room 202',
     status: 'Enabled',
     waitedTime: 60,
+    lastUsed: 1701109384205,
   },
   {
     id: '102347824',
@@ -18,6 +19,7 @@ const printers: Printer[] = [
     location: 'Room 203',
     status: 'Enabled',
     waitedTime: 12,
+    lastUsed: 1701109384205,
   },
   {
     id: '102347825',
@@ -27,6 +29,7 @@ const printers: Printer[] = [
     location: 'Room 204',
     status: 'Disabled',
     waitedTime: 1,
+    lastUsed: 1701109384205,
   },
   {
     id: '102347826',
@@ -36,6 +39,7 @@ const printers: Printer[] = [
     location: 'Room 205',
     status: 'Enabled',
     waitedTime: 5,
+    lastUsed: 1701109384205,
   },
   {
     id: '102347827',
@@ -45,12 +49,14 @@ const printers: Printer[] = [
     location: 'Room 206',
     waitedTime: 5,
     status: 'Enabled',
+    lastUsed: 1701109384205,
   },
 ];
 
 const printRequests: PrintRequest[] = [
   {
     id: '234234234',
+    status: 'Printing',
     files: [
       {
         id: '345345345',
@@ -69,10 +75,11 @@ const printRequests: PrintRequest[] = [
     fileCount: 1,
     printer: '102347823',
     pageCount: 1,
-    createdAt: 1590000000000,
+    createdAt: 1701109384205,
   },
   {
     id: '234234235',
+    status: 'Sucesss',
     files: [
       {
         id: '345345346',
@@ -104,10 +111,11 @@ const printRequests: PrintRequest[] = [
     fileCount: 2,
     printer: '102347824',
     pageCount: 2,
-    createdAt: 1590000000000,
+    createdAt: 1701109384205,
   },
   {
     id: '234234236',
+    status: 'Pending',
     files: [
       {
         id: '345345348',
@@ -152,8 +160,75 @@ const printRequests: PrintRequest[] = [
     fileCount: 3,
     printer: '102347825',
     pageCount: 3,
-    createdAt: 1590000000000,
+    createdAt: 1701109384205,
+  },
+  {
+    id: '234234237',
+    status: 'Sucesss',
+    files: [
+      {
+        id: '345345348',
+        name: 'test.pdf',
+        mimeType: 'PDF',
+        printPageCount: 1,
+        printPages: '1',
+        pagePerSheet: 1,
+        paperSize: PaperSize.A4,
+        copies: 1,
+        side: 'OneSided',
+        orientation: 'Portrait',
+        uploadStatus: 100,
+      },
+      {
+        id: '345345349',
+        name: 'test.pdf',
+        mimeType: 'PDF',
+        printPageCount: 1,
+        printPages: '1',
+        pagePerSheet: 1,
+        paperSize: PaperSize.A4,
+        copies: 1,
+        side: 'OneSided',
+        orientation: 'Portrait',
+        uploadStatus: 100,
+      },
+      {
+        id: '345345350',
+        name: 'test.pdf',
+        mimeType: 'PDF',
+        printPageCount: 1,
+        printPages: '1',
+        pagePerSheet: 1,
+        paperSize: PaperSize.A4,
+        copies: 1,
+        side: 'OneSided',
+        orientation: 'Portrait',
+        uploadStatus: 100,
+      },
+    ],
+    fileCount: 3,
+    printer: '102347825',
+    pageCount: 3,
+    createdAt: 1701109384205,
   },
 ];
 
-export { printers, printRequests };
+const purchases: Purchase[] = [
+  {
+    id: '234234234',
+    createdAt: 1701109384205,
+    amount: 1,
+  },
+  {
+    id: '234234235',
+    createdAt: 1701109384205,
+    amount: 3,
+  },
+  {
+    id: '234234236',
+    createdAt: 1701109384205,
+    amount: 5,
+  },
+];
+
+export { printers, printRequests, purchases };
