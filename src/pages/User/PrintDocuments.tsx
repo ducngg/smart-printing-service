@@ -22,6 +22,7 @@ import {
 import { useLocalStorage } from 'usehooks-ts';
 
 import MapImg from 'assets/images/map.png';
+import DeleteModal from 'common/DeleteModal';
 import TableContainer from 'Components/Common/TableContainer';
 import { printers } from 'data';
 import formatBytes from 'helpers/format-bytes';
@@ -53,6 +54,7 @@ const PrintDocuments = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [document, setDocument] = useState<Document>(defaultDocument);
   const [uploadedFile, setUploadedFile] = useState<PreviewFile | null>(null);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   // Storage
   const [storage, setStorage] = useLocalStorage<
@@ -116,6 +118,7 @@ const PrintDocuments = () => {
       return prev.filter((f) => !selectedFiles.some((s) => s.id === f.id));
     });
     setSelectedFiles([]);
+    setDeleteModal(false);
   }, [selectedFiles, setStorage]);
 
   const storageColumn = useMemo<ColumnDef<Document, any>[]>(
@@ -331,6 +334,12 @@ const PrintDocuments = () => {
 
   return (
     <React.Fragment>
+      <DeleteModal
+        text={'Are you sure you want to delete ?'}
+        show={deleteModal}
+        onCloseClick={() => setDeleteModal(false)}
+        onDeleteClick={handleDeleteSelection}
+      />
       <Modal size='lg' isOpen={isOpen} toggle={toggle}>
         <ModalHeader toggle={toggle}>Add new file</ModalHeader>
         <ModalBody>
@@ -480,7 +489,7 @@ const PrintDocuments = () => {
                               paddingTop: 2,
                               paddingBottom: 2,
                             }}
-                            onClick={handleDeleteSelection}
+                            onClick={() => setDeleteModal(true)}
                           >
                             Delete selection
                           </Button>

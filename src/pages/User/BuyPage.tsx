@@ -11,6 +11,8 @@ import {
   Container,
   Input,
   Label,
+  Modal,
+  ModalBody,
   Row,
 } from 'reactstrap';
 
@@ -29,6 +31,7 @@ const BuyPage = () => {
 
   const [quantity, setQuantity] = useState<number>(0);
   const [purchases, setPurchases] = useState<Purchase[]>(defaultPurchase);
+  const [confirmModal, setConfirmModal] = useState(false);
 
   const columns = useMemo<ColumnDef<Purchase, any>[]>(
     () => [
@@ -66,6 +69,53 @@ const BuyPage = () => {
 
   return (
     <React.Fragment>
+      <Modal isOpen={confirmModal} toggle={() => setConfirmModal(false)} centered={true}>
+        <div className='modal-content'>
+          <ModalBody className='px-4 py-5 text-center'>
+            <button
+              type='button'
+              onClick={() => setConfirmModal(false)}
+              className='btn-close position-absolute end-0 top-0 m-3'
+            ></button>
+            <div className='avatar-sm mb-4 mx-auto'>
+              <div className='avatar-title bg-success text-success bg-opacity-10 font-size-20 rounded-3'>
+                <i className='mdi mdi-shopping'></i>
+              </div>
+            </div>
+            <p className='text-muted font-size-16 mb-4'>Are you sure you want to buy</p>
+
+            <div className='hstack gap-2 justify-content-center mb-0'>
+              <button
+                type='button'
+                className='btn btn-success'
+                onClick={() => {
+                  if (isNaN(quantity) || quantity <= 0) return;
+
+                  toast.success('Purchase success');
+                  setPurchases([
+                    ...purchases,
+                    {
+                      id: (parseInt(purchases[purchases.length - 1].id, 10) + 1).toString(),
+                      amount: quantity,
+                      createdAt: Date.now(),
+                    },
+                  ]);
+                  setConfirmModal(false);
+                }}
+              >
+                Buy Now
+              </button>
+              <button
+                type='button'
+                className='btn btn-secondary'
+                onClick={() => setConfirmModal(false)}
+              >
+                Close
+              </button>
+            </div>
+          </ModalBody>
+        </div>
+      </Modal>
       <div className='page-content'>
         <Container fluid>
           {/* Render Breadcrumbs */}
@@ -137,19 +187,7 @@ const BuyPage = () => {
                           width: 100,
                         }}
                         disabled={isNaN(quantity) || quantity <= 0}
-                        onClick={() => {
-                          if (isNaN(quantity) || quantity <= 0) return;
-
-                          toast.success('Purchase success');
-                          setPurchases([
-                            ...purchases,
-                            {
-                              id: (parseInt(purchases[purchases.length - 1].id, 10) + 1).toString(),
-                              amount: quantity,
-                              createdAt: Date.now(),
-                            },
-                          ]);
-                        }}
+                        onClick={() => setConfirmModal(true)}
                       >
                         Purchase
                       </Button>

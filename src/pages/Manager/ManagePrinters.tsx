@@ -3,6 +3,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Badge,
+  Button,
   Card,
   CardBody,
   CardTitle,
@@ -100,6 +101,39 @@ const ManagerPrinters = () => {
         enableGlobalFilter: false,
         cell: (cellProps) => {
           return (
+            <Button
+              type='button'
+              color='primary'
+              className='btn-sm btn-rounded'
+              style={{
+                width: 100,
+              }}
+              onClick={() =>
+                setPrinters((pl) =>
+                  pl.map((p, index) => {
+                    if (index === cellProps.cell.row.index) {
+                      return {
+                        ...p,
+                        status: p.status === 'Disabled' ? 'Enabled' : 'Disabled',
+                      };
+                    }
+                    return p;
+                  })
+                )
+              }
+            >
+              {printers[cellProps.cell.row.index].status === 'Disabled' ? 'Enabled' : 'Disabled'}
+            </Button>
+          );
+        },
+      },
+      {
+        header: 'Action',
+        accessorKey: 'id',
+        enableColumnFilter: false,
+        enableGlobalFilter: false,
+        cell: (cellProps) => {
+          return (
             <Link
               to='#'
               className='text-danger'
@@ -113,7 +147,7 @@ const ManagerPrinters = () => {
         },
       },
     ],
-    []
+    [printers]
   );
 
   return (
