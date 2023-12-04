@@ -178,15 +178,15 @@ const ExpenseReport = () => {
                     }}
                     series={[
                       {
-                        name: 'Category 1',
+                        name: 'A2',
                         data: [20, 40, 20, 40, 20, 40, 20, 40, 20, 40],
                       },
                       {
-                        name: 'Category 2',
+                        name: 'A3',
                         data: [4, 3, 5, 12, 0, 12, 2, 5, 8, 1],
                       },
                       {
-                        name: 'Category 3',
+                        name: 'A4',
                         data: [1, 2, 4, 1, 7, 6, 2, 8, 8, 1],
                       },
                     ]}
@@ -209,10 +209,7 @@ const ExpenseReport = () => {
                     </Col>
                     <Col>
                       <form className='mb-4'>
-                        <Label
-                          htmlFor='horizontal-firstname-Input'
-                          className='col-sm-3 col-form-label'
-                        >
+                        <Label htmlFor='horizontal-firstname-Input' className='col-form-label'>
                           Category name
                         </Label>
                         <input
@@ -225,10 +222,7 @@ const ExpenseReport = () => {
                     </Col>
                     <Col>
                       <form className='mb-4'>
-                        <Label
-                          htmlFor='horizontal-firstname-Input'
-                          className='col-sm-3 col-form-label'
-                        >
+                        <Label htmlFor='horizontal-firstname-Input' className='col-form-label'>
                           From
                         </Label>
                         <InputGroup>
@@ -245,10 +239,7 @@ const ExpenseReport = () => {
                     </Col>
                     <Col>
                       <form className='mb-4'>
-                        <Label
-                          htmlFor='horizontal-firstname-Input'
-                          className='col-sm-3 col-form-label'
-                        >
+                        <Label htmlFor='horizontal-firstname-Input' className='col-form-label'>
                           To
                         </Label>
                         <InputGroup>
@@ -271,17 +262,17 @@ const ExpenseReport = () => {
                     theadClass=''
                     data={[
                       {
-                        category: 'Category 1',
+                        category: 'A2',
                         description: 'Description 1',
                         cost: '100000',
                       },
                       {
-                        category: 'Category 2',
+                        category: 'A3',
                         description: 'Description 2',
                         cost: '200000',
                       },
                       {
-                        category: 'Category 3',
+                        category: 'A4',
                         description: 'Description 3',
                         cost: '300000',
                       },

@@ -208,10 +208,7 @@ const ReportIssue = () => {
                     </Col>
                     <Col>
                       <form className='mb-4'>
-                        <Label
-                          htmlFor='horizontal-firstname-Input'
-                          className='col-sm-3 col-form-label'
-                        >
+                        <Label htmlFor='horizontal-firstname-Input' className=' col-form-label'>
                           Priority
                         </Label>
                         <Dropdown value={prio} onChange={setPrio} />
@@ -219,10 +216,7 @@ const ReportIssue = () => {
                     </Col>
                     <Col>
                       <form className='mb-4'>
-                        <Label
-                          htmlFor='horizontal-firstname-Input'
-                          className='col-sm-3 col-form-label'
-                        >
+                        <Label htmlFor='horizontal-firstname-Input' className=' col-form-label'>
                           From
                         </Label>
                         <InputGroup>
@@ -243,10 +237,7 @@ const ReportIssue = () => {
                     </Col>
                     <Col>
                       <form className='mb-4'>
-                        <Label
-                          htmlFor='horizontal-firstname-Input'
-                          className='col-sm-3 col-form-label'
-                        >
+                        <Label htmlFor='horizontal-firstname-Input' className=' col-form-label'>
                           To
                         </Label>
                         <InputGroup>
@@ -267,10 +258,7 @@ const ReportIssue = () => {
                     </Col>
                     <Col>
                       <form className='mb-4'>
-                        <Label
-                          htmlFor='horizontal-firstname-Input'
-                          className='col-sm-3 col-form-label'
-                        >
+                        <Label htmlFor='horizontal-firstname-Input' className=' col-form-label'>
                           Resolved
                         </Label>
                         <select
