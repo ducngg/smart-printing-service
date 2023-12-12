@@ -1,4 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
+import _ from 'lodash';
 import React, { useCallback, useMemo, useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
@@ -319,10 +320,25 @@ const PrintDocuments = () => {
     [currPrinter]
   );
 
+  const [permittedFileTypes] = useLocalStorage('types', [
+    '.doc',
+    '.docx',
+    '.rtf',
+    '.xls',
+    '.xlsx',
+    '.ppt',
+    '.pptx',
+    '.pdf',
+    '.txt',
+  ]);
+
   const handleAcceptedFiles = (files: File[]) => {
     if (files.length <= 0) return;
-    if (files[0].type !== 'application/pdf') {
-      toast.error('Only pdf files are allowed');
+    const permitted = _.some(permittedFileTypes, (ext) => _.endsWith(files[0].name, ext));
+    if (!permitted) {
+      toast.error(
+        `File type not supported. Supported file types are: ${_.join(permittedFileTypes, ', ')}`
+      );
       return;
     }
     setUploadedFile(

@@ -1,5 +1,5 @@
 {
   "projects": {
-    "dev": "oisp-admin-dev"
+    "default": "spss-group-12"
   }
 }
