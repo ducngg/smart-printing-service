@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Flatpickr from 'react-flatpickr';
 import { toast } from 'react-toastify';
 import {
@@ -19,12 +19,31 @@ import useTitle from 'hooks/useTitle';
 
 import Breadcrumbs from '../../Components/Common/Breadcrumb';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'flatpickr/dist/themes/material_blue.css';
+// eslint-disable-next-line import/order
+import { useLocalStorage } from 'usehooks-ts';
+// eslint-disable-next-line import/order
+import _ from 'lodash';
 
 const SysConfig = () => {
   useTitle('System Configuration', {
     restoreOnUnmount: true,
   });
+
+  const [types, setTypes] = useLocalStorage('types', [
+    '.doc',
+    '.docx',
+    '.rtf',
+    '.xls',
+    '.xlsx',
+    '.ppt',
+    '.pptx',
+    '.pdf',
+    '.txt',
+  ]);
+
+  const [configFileTypes, setConfigFileTypes] = useState(_.join(types, ', '));
 
   return (
     <React.Fragment>
@@ -59,7 +78,15 @@ const SysConfig = () => {
                     <Label htmlFor='horizontal-firstname-Input' className='col-sm-3 col-form-label'>
                       Permitted file extensions (separated by a comma)
                     </Label>
-                    <Input type='text' className='form-control' id='horizontal-firstname-Input' />
+                    <Input
+                      type='text'
+                      value={configFileTypes}
+                      className='form-control'
+                      id='horizontal-firstname-Input'
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setConfigFileTypes(e.target.value)
+                      }
+                    />
                   </form>
                 </CardBody>
               </Card>
@@ -82,7 +109,45 @@ const SysConfig = () => {
                   width: 100,
                 }}
                 onClick={() => {
-                  toast.info('Saved!');
+                  const extensions = _.split(configFileTypes, ',');
+                  const ok = _.every(extensions, (ext) => {
+                    const trimmedExtension = _.trim(ext);
+                    let alphaNumeric = true;
+                    for (let i = 1; i < trimmedExtension.length; i++) {
+                      if (
+                        !(
+                          (trimmedExtension[i] >= 'a' && trimmedExtension[i] <= 'z') ||
+                          (trimmedExtension[i] >= 'A' && trimmedExtension[i] <= 'Z') ||
+                          (trimmedExtension[i] >= '0' && trimmedExtension[i] <= '9')
+                        )
+                      ) {
+                        alphaNumeric = false;
+                      }
+                    }
+
+                    if (
+                      _.startsWith(trimmedExtension, '.') &&
+                      trimmedExtension.length >= 2 &&
+                      alphaNumeric
+                    ) {
+                      return true;
+                    }
+
+                    return false;
+                  });
+
+                  if (!ok) {
+                    toast.error(
+                      'Expected file types separated by comma. For example: .doc, .pdf, .xlxs'
+                    );
+                    return;
+                  }
+
+                  const newTypes = _.map(_.split(configFileTypes, ','), s => _.trim(s))
+                  setTypes(newTypes);
+                  setConfigFileTypes(_.join(newTypes, ', '));
+
+                  toast.success('System configuration saved');
                 }}
               >
                 Save
