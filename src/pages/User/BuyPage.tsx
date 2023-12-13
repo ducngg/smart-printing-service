@@ -169,7 +169,7 @@ const BuyPage = () => {
                       Total
                     </Label>
                     <Col sm={9}>
-                      {!isNaN(quantity) && (quantity * 1000).toLocaleString('en-US')} VND/page
+                      {!isNaN(quantity) && (quantity * 1000).toLocaleString('en-US')} VND
                     </Col>
                     <Col
                       style={{
